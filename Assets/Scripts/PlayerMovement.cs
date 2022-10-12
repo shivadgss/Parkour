@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private float speed;
-    public float walkSpeed;
+    public float crouchSpeed;
+    public float speed;
     public float sprintSpeed;
     public Transform orientation;
     float horizontalInput;
@@ -32,10 +33,26 @@ public class PlayerMovement : MonoBehaviour
             
             rb.AddForce(Vector3.up * jumpheight, ForceMode.Impulse);
         }
-    }
-    private void FixedUpdate()
-    {
         MovePlayer();
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            speed = sprintSpeed;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            speed = 10f;
+        }
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            transform.localScale = new Vector3(transform.localScale.x, 0.5f, transform.localScale.z);
+            speed = crouchSpeed;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            transform.localScale = new Vector3(transform.localScale.x, 1f, transform.localScale.z);
+            speed = 10f;
+            
+        }
     }
     private void MyInput()
     {

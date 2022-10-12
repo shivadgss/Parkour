@@ -718,7 +718,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f9016efba6f3d04f88b9e7f656fadf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 12
+  crouchSpeed: 5
+  speed: 10
+  sprintSpeed: 20
   orientation: {fileID: 1438445552}
   playerHeight: 2
   groundcheck:
