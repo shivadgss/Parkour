@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void MovePlayer()
     {
-        direction = orientation.forward * verticalInput * speed + orientation.right * horizontalInput * speed + transform.up * rb.velocity.y;
+        direction = orientation.forward * verticalInput * speed + orientation.right * horizontalInput * speed ;
         rb.velocity = direction;
     }
 
