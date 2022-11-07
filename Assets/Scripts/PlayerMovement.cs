@@ -17,10 +17,21 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundcheck;
     bool isGrounded;
     public float jumpheight;
+    public float maxSlopeAngle;
+    private RaycastHit slopeHit;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+    }
+    private bool OnSLope()
+    {
+        if(Physics.Raycast(transform.position,Vector3.down,out slopeHit, playerHeight *0.5f+ 0.3f))
+        {
+            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+            return angle < maxSlopeAngle && angle != 0;
+        }
+        return false;
     }
 
     // Update is called once per frame
@@ -63,6 +74,14 @@ public class PlayerMovement : MonoBehaviour
     {
         direction = orientation.forward * verticalInput * speed + orientation.right * horizontalInput * speed ;
         rb.velocity = direction;
+        if (OnSLope())
+        {
+            rb.velocity = SlopeDirection()*speed ;
+        }
+    }
+    private Vector3 SlopeDirection()
+    {
+        return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
     }
 
 }
