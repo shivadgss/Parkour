@@ -10,7 +10,6 @@ public class WallRunning : MonoBehaviour
     [Header("WallRunning")]
     [SerializeField] float wallDistance = .5f;
     [SerializeField] float minJumpHeight = 1f;
-    private Rigidbody rb;
     [SerializeField] private float wallRunGravity;
     [SerializeField] private float WallJumpForce;
 
@@ -19,6 +18,7 @@ public class WallRunning : MonoBehaviour
     RaycastHit leftWallHit;
     RaycastHit rightWallHit;
     PlayerMovement pm;
+    private Rigidbody rb;
 
     private void Start()
     {
@@ -42,39 +42,46 @@ public class WallRunning : MonoBehaviour
 
         if (CanWallRun())
         {
-            if (WallLeft)
+            if (WallLeft || WallRight)
             {
                 StartWallRun();
             }
-            else if (WallRight)
-            {
-                StartWallRun();
-            }
-            else
-            {
-                StopWallRun();
-            }
+
         }
     }
 
     void StartWallRun()
     {
         rb.useGravity = false;
-        rb.AddForce(Vector3.down * wallRunGravity, ForceMode.Force);
-        if (Input.GetKeyDown(KeyCode.Space))
+
+        if (Input.GetKey(KeyCode.Space))
         {
             if (WallLeft)
             {
-                Vector3 wallRunJumpDirection = transform.up +leftWallHit.normal;
-                rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-                rb.AddForce(wallRunJumpDirection*WallJumpForce*100f, ForceMode.Force);
+                rb.AddForce(leftWallHit.normal * wallRunGravity, ForceMode.Force);
+               // rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
             }
             else if (WallRight)
             {
-                Vector3 wallRunJumpDirection = transform.up + rightWallHit.normal;
-                rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-                rb.AddForce(wallRunJumpDirection * WallJumpForce * 100f, ForceMode.Force);
+                rb.AddForce(rightWallHit.normal * wallRunGravity, ForceMode.Force);
+                //rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
             }
+        }
+        else if (Input.GetKeyUp(KeyCode.Space))
+        {
+            if (WallLeft)
+            {
+                rb.AddForce(leftWallHit.normal * WallJumpForce, ForceMode.Impulse);
+            }
+            else if (WallRight)
+            {
+                rb.AddForce(rightWallHit.normal*WallJumpForce,ForceMode.Impulse);  
+            }
+        }
+        else
+        {
+            StopWallRun();
         }
     }
     void StopWallRun()

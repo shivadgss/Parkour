@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float crouchSpeed;
-    public float speed;
     public float sprintSpeed;
     public Transform orientation;
     public float playerHeight;
@@ -20,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private bool isGrounded;
     private RaycastHit slopeHit;
+    private float speed=10f;
 
     [SerializeField]private float playerRaycastOffset = 0.3f;
     [SerializeField] private float normalSpeed=10f;
