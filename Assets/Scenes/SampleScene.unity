@@ -407,7 +407,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 284250850}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.56, y: 3.17, z: 8.794722}
+  m_LocalPosition: {x: 4.65, y: 3.17, z: 8.794722}
   m_LocalScale: {x: 1, y: 5.1241, z: 14.012289}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -817,7 +817,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crouchSpeed: 5
-  speed: 10
   sprintSpeed: 20
   orientation: {fileID: 1438445552}
   playerHeight: 2
@@ -825,7 +824,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   jumpheight: 50
-  maxSlopeAngle: 40
+  maxSlopeAngle: 90
+  playerRaycastOffset: 0.3
+  normalSpeed: 10
 --- !u!114 &1023909938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -841,8 +842,8 @@ MonoBehaviour:
   orientation: {fileID: 1438445552}
   wallDistance: 0.6
   minJumpHeight: 1.5
-  wallRunGravity: 1
-  WallJumpForce: 6
+  wallRunGravity: -49.5
+  WallJumpForce: 50
 --- !u!1 &1127034505
 GameObject:
   m_ObjectHideFlags: 0
